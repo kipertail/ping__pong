@@ -1,7 +1,4 @@
 from pygame import * 
-import random
-
-# Классы
 
 class GameSprite(sprite.Sprite):
     def __init__(self, image_name, speed, pos_x, pos_y, size_x, size_y):
@@ -45,21 +42,12 @@ class Enemy(GameSprite):
 
 
 # Параметры окна
+background_color = (200, 255, 255)
 win_width = 700
 win_height = 500
 window = display.set_mode((win_width, win_height))
 display.set_caption('Ping-Pong')
-
-# Background
-background_color = (200, 255, 255)
-background = transform.scale(
-    (background_color)), 
-    (win_width, win_height)
-
-score = 0
-lost = 0
-max_lost = 5
-win_score = 10
+window.fill(background_color)
 
 # Игровой цикл
 FPS = 60
@@ -76,7 +64,7 @@ while run:
         
 
     if not finish:
-        window.fill(background_color_)
+        window.fill(background_color)
 
     clock.tick(FPS)
     display.update()
