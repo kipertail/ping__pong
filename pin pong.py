@@ -15,13 +15,20 @@ class GameSprite(sprite.Sprite):
 
 
 class Player(GameSprite):
-    def update(self):
+    def update_left(self):
         keys = key.get_pressed()
 
-        if keys[K_LEFT] and self.rect.x > 0:
-            self.rect.x -= self.speed
-        if keys[K_RIGHT] and self.rect.x < win_width - 65:
-            self.rect.x += self.speed
+        if keys[K_w] and self.rect.y < 700:
+            self.rect.y -= self.speed
+        if keys[K_s] and self.rect.y < win_width - 150:
+            self.rect.y += self.speed
+    def update_right(self):
+        keys = key.get_pressed()
+
+        if keys[K_UP] and self.rect.y > 0:
+            self.rect.y -= self.speed
+        if keys[K_DOWN] and self.rect.y < win_width - 150:
+            self.rect.y += self.speed
 
     def fire(self):
         bullet = Bullet("bullet.png", 5, self.rect.centerx, self.rect.top, 15, 20)
@@ -49,6 +56,12 @@ window = display.set_mode((win_width, win_height))
 display.set_caption('Ping-Pong')
 window.fill(background_color)
 
+
+
+racket_left = Player('racket.png', 4, 30, 200, 50, 150)
+racket_right = Player('racket.png', 4, 620, 200, 50, 150)
+ball = Enemy('tenis_ball.png', 4, 200, 200, 50, 50)
+
 # Игровой цикл
 FPS = 60
 clock = time.Clock()
@@ -65,6 +78,12 @@ while run:
 
     if not finish:
         window.fill(background_color)
+        racket_left.update_left()
+        racket_right.update_right()
+
+        ball.reset()
+        racket_left.reset()
+        racket_right.reset()
 
     clock.tick(FPS)
     display.update()
